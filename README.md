@@ -1,2 +1,2 @@
 # fussball
-App fuer WM Tipps oder der gleichen
+App fuer Wetten und der gleichen
