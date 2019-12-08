@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Betting JAR Project" default="all" basedir=".">
+
+	<property name="rootWorkspace" value="C:\JavaHonk\eclipse\eclipse\workspaceEAR" />
+	<property name="classdir" value="${basedir}/build/classes" />
+	<property name="jarFile" value="${rootWorkspace}/betting-app/build/jar/betting-core-impl.jar"/>	
+	<property name="jarDir" value="${rootWorkspace}/betting-app/build/jar"/>
+	
+	<!-- Define the CLASSPATH -->
+	<path id="classpath">
+		<fileset dir="${basedir}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<!-- Main target -->
+	<target name="all" depends="init,compile,buildJar" />	
+	
+	<target name="init" description="Initial process">
+		<delete dir="${jarDir}"/>
+		<delete dir="${classdir}"/>
+		<echo message="Cleaned" />		
+		<mkdir dir="${jarDir}"/>
+		<mkdir dir="${classdir}"/>
+		<echo message="All new directory created" />		
+	</target>
+
+	<target name="compile">
+		<javac srcdir="src" destdir="build/classes" includeantruntime="false">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+	
+	<!-- Create Jar File -->
+	<target name="buildJar">
+		<jar destfile="${jarDir}/betting-core-impl.jar" basedir="build/classes"/>
+	</target>
+
+</project>
