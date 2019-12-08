@@ -1,2 +1,1 @@
-# fussball
-App fuer Wetten und der gleichen
+# Betting-App
