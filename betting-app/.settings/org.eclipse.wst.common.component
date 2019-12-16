@@ -6,9 +6,13 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="db-services.jar" deploy-path="/" handle="module:/resource/db-services/db-services">
+            <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="betting-web.war" deploy-path="/" handle="module:/resource/betting-web/betting-web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="db-services.jar" deploy-path="/" handle="module:/resource/db-services/db-services">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
