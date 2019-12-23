@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.connection.PSQLConnectorService;
-import db.data.Player;
+import db.entity.Player;
 
 public class PlayersRepository {
 	

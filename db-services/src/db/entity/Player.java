@@ -1,4 +1,4 @@
-package db.data;
+package db.entity;
 
 public class Player {
 

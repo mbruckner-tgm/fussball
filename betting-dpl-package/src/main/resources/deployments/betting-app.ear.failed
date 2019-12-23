@@ -1,0 +1,2 @@
+"{\"WFLYCTL0080: Failed services\" => {\"jboss.deployment.unit.\\\"betting-app.ear\\\".STRUCTURE\" => \"WFLYSRV0153: Failed to process phase STRUCTURE of deployment \\\"betting-app.ear\\\"
+    Caused by: org.jboss.as.server.deployment.DeploymentUnitProcessingException: WFLYEE0031: Unable to process modules in application.xml for EAR [\\\"/C:/development/fussball/betting-dpl-package/src/main/resources/deployments/betting-app.ear\\\"], module file betting-web.war not found\"}}"

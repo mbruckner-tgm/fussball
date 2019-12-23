@@ -148,7 +148,7 @@
                 <datasource jta="false" jndi-name="java:jboss/postgresDS" pool-name="postgresDS" enabled="true" use-java-context="true" use-ccm="false">
                     <connection-url>jdbc:postgresql://localhost:5432/betting_db</connection-url>
                     <driver-class>org.postgresql.Driver</driver-class>
-                    <datasource-class>org.postgresql.ds.PGSimpleDataSource</datasource-class>
+                   	<datasource-class>org.postgresql.ds.PGSimpleDataSource</datasource-class>
                     <driver>postgresql</driver>
                     <pool>
                         <min-pool-size>0</min-pool-size>

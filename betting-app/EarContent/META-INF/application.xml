@@ -2,10 +2,10 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd" id="Application_ID" version="8">
   <display-name>betting-app</display-name>
   <module>
-	<web>
-		<web-uri>betting-web.war</web-uri>
-		<context-root>betting-web</context-root>
-	</web>	
+    <web>
+      <web-uri>betting-web.war</web-uri>
+      <context-root>betting-web</context-root>
+    </web>
   </module>
   <module>
     <ejb>db-services.jar</ejb>
@@ -13,11 +13,5 @@
   <module>
     <ejb>betting-core-impl.jar</ejb>
   </module>
-  <resource-ref>
-	<res-ref-name>java:app/jdbc/betting</res-ref-name>
-	<res-type>javax.sql.DataSource</res-type>
-	<res-auth>Container</res-auth>
-	<res-sharing-scope>Shareable</res-sharing-scope>
-	<lookup-name>java:jboss/jdbc/betting/BettingPS</lookup-name>
-  </resource-ref>
+  <library-directory>lib</library-directory>
 </application>
