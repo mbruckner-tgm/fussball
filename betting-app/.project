@@ -6,6 +6,7 @@
 		<project>betting-core-impl</project>
 		<project>db-services</project>
 		<project>betting-web</project>
+		<project>betting-core</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

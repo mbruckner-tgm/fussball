@@ -15,5 +15,9 @@
         <dependent-module archiveName="db-services.jar" deploy-path="/" handle="module:/resource/db-services/db-services">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="betting-core.jar" deploy-path="/" handle="module:/resource/betting-core/betting-core">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

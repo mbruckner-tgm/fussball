@@ -32,7 +32,7 @@
 					<artifactId>maven-ejb-plugin</artifactId>
 					<version>${org.apache.maven.plugins.version}</version>
 					<configuration>
-						<ejbVersion>3.0</ejbVersion>
+						<ejbVersion>3.2</ejbVersion>
 					</configuration>
 				</plugin>
 				
@@ -41,6 +41,7 @@
 					<artifactId>maven-ear-plugin</artifactId>
 					<version>${org.apache.maven.plugins.version}</version>
 					<configuration>
+						<version>8</version>
 						<includeLibInApplicationXml>false</includeLibInApplicationXml>
 					</configuration>
 				</plugin>

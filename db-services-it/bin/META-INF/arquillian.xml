@@ -1,0 +1,56 @@
+<arquillian xmlns="http://jboss.org/schema/arquillian"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+ <container qualifier="wildfly-managed">
+        <configuration>
+          <property name="javaHome">C:/Program Files/Java/jdk1.8.0_231</property>
+            <property name="jbossHome">C:/Users/Brucks/wildfly-14.0.1.Final</property>
+            <property name="serverConfig">standalone.xml</property>
+            <!-- <property name="javaVmArguments">${jvmArgs} ${jvmDebugArgs}</property> -->
+            <!-- <property name="jbossArguments">- -properties=C:/development/data/git/ip/ip-app-dpl-package/localConfig.properties</property> -->
+           
+            <!--
+                 Please leave this as false. It is a good, early catch for the reviewers to make
+                 sure that they have not left a stale server running when merging pull requests
+            -->
+            <property name="allowConnectingToRunningServer">false</property>
+
+            <!--
+            Time to wait for shutdown to complete
+            <property name="stopTimeoutInSeconds">60</property>
+            Space-delimited list of ports on which to wait
+            <property name="waitForPorts">2222</property>
+            Time, in seconds, to wait on the above ports
+            <property name="waitForPortsTimeoutInSeconds">20</property>
+             -->
+        </configuration>
+ </container>
+ <container qualifier="wildfly-embedded" default="true">
+        <configuration>
+           <!-- ACHTUNG: bei der Run Configuration muessen folgende VM Argument gesetzt werden:
+           
+           
+            -Darzdb.config=file:/C:/development/data/git/ip/ip-app-dpl-package/configuration/arzdb.properties
+            -->
+            <property name="jbossHome">C:/Users/Brucks/wildfly-14.0.1.Final</property>
+           <property name="modulePath">C:/Users/Brucks/wildfly-14.0.1.Final/modules</property>
+            <property name="serverConfig">standalone.xml</property>
+            
+            <!--
+                 Please leave this as false. It is a good, early catch for the reviewers to make
+                 sure that they have not left a stale server running when merging pull requests
+            
+             -->
+            <!--  <property name="allowConnectingToRunningServer">false</property> -->
+
+            <!--
+            Time to wait for shutdown to complete
+            <property name="stopTimeoutInSeconds">60</property>
+            Space-delimited list of ports on which to wait
+            <property name="waitForPorts">2222</property>
+            Time, in seconds, to wait on the above ports
+            <property name="waitForPortsTimeoutInSeconds">20</property>
+             -->
+        </configuration>
+ </container>
+</arquillian>

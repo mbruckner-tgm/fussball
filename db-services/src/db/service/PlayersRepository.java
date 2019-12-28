@@ -1,42 +1,25 @@
 package db.service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import db.connection.PSQLConnectorService;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import db.entity.Player;
 
+@Stateless
 public class PlayersRepository {
-	
+
+	@PersistenceContext(unitName = "betting-db")
+	private EntityManager entityManager;
+
 	public List<Player> selectAllPlayers() {
-		PSQLConnectorService psqlConnectorService = new PSQLConnectorService();
-		List<Player> players = new ArrayList<>();
-		String selectAllFromPlayers = "SELECT * FROM players";
-		
-		try (Connection connection = psqlConnectorService.createConnection(); 
-				PreparedStatement preparedStatement = connection.prepareStatement(selectAllFromPlayers)){
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				Player player = new Player();
-				player.setPlayerId(resultSet.getString("player_id"));
-				player.setPlayerName(resultSet.getString("player_name"));
-				players.add(player);
-			}
-		} catch (SQLException e){
-			System.out.println(e.getMessage());
-		}
-		return players;
+		return entityManager.createNamedQuery("findAll", Player.class).getResultList();
 	}
-	
-	
-	public static void main(String[] args) {
-		PlayersRepository playersRepository = new PlayersRepository();
-		List<Player> players = playersRepository.selectAllPlayers();
-		players.forEach(entry -> System.out.println(entry.toString()));
+
+	public void insertNewPlayer(Player newPlayer) {
+		entityManager.persist(newPlayer);
 	}
 	
 }

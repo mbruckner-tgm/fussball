@@ -13,5 +13,8 @@
   <module>
     <ejb>betting-core-impl.jar</ejb>
   </module>
+  <module>
+    <ejb>betting-core.jar</ejb>
+  </module>
   <library-directory>lib</library-directory>
 </application>
