@@ -14,35 +14,20 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>8.0</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>betting.app</groupId>
 			<artifactId>db-services</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
-			<groupId>betting.app</groupId>
-			<artifactId>betting-core</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-ejb-plugin</artifactId>
+			<version>${org.apache.maven.plugins.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>1.10.19</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${spring-boot-starter.version}</version>
 		</dependency>
 	</dependencies>
 </project>
