@@ -84,11 +84,16 @@
                 <socket-binding http="management-http"/>
             </http-interface>
         </management-interfaces>
-        <access-control provider="simple">
+        <access-control provider="rbac">
             <role-mapping>
                 <role name="SuperUser">
                     <include>
                         <user name="$local"/>
+                    </include>
+                </role>
+                <role name="Administrator">
+                    <include>
+                        <user name="brucks"/>
                     </include>
                 </role>
             </role-mapping>
@@ -482,7 +487,7 @@
             <server name="default-server">
                 <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true"/>
                 <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
-                <host name="default-host" alias="localhost">
+                <host name="default-host" alias="localhost" default-web-module="myApp.war">
                     <location name="/" handler="welcome-content"/>
                     <http-invoker security-realm="ApplicationRealm"/>
                 </host>

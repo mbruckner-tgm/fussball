@@ -20,9 +20,7 @@
 
 	<modules>
 		<module>db-services</module>
-		<module>betting-core-impl</module>
 		<module>betting-web</module>
-		<module>betting-app</module>
 		<module>betting-dpl-package</module>
 	</modules>
 	
@@ -35,16 +33,6 @@
 					<version>${org.apache.maven.plugins.version}</version>
 					<configuration>
 						<ejbVersion>3.2</ejbVersion>
-					</configuration>
-				</plugin>
-				
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-ear-plugin</artifactId>
-					<version>${org.apache.maven.plugins.version}</version>
-					<configuration>
-						<version>8</version>
-						<includeLibInApplicationXml>false</includeLibInApplicationXml>
 					</configuration>
 				</plugin>
 				

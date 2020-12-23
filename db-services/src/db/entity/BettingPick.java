@@ -28,7 +28,11 @@ public class BettingPick implements Serializable {
 
 	//bi-directional many-to-one association to Match
 	@ManyToOne
-	@JoinColumn(name="match_id", referencedColumnName="match_id")
+	@JoinColumns({
+		@JoinColumn(name="match_day", referencedColumnName="match_day"),
+		@JoinColumn(name="match_id", referencedColumnName="match_id"),
+		@JoinColumn(name="match_tournament_id", referencedColumnName="tournament_id")
+		})
 	private Match match1;
 
 	//bi-directional many-to-one association to Match

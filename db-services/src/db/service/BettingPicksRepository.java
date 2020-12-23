@@ -2,16 +2,16 @@ package db.service;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import db.entity.BettingPick;
-import db.entity.Player;
-import db.entity.Tournament;
 
 
 @Stateless
+@LocalBean
 public class BettingPicksRepository {
 
 	@PersistenceContext(unitName = "betting-db")

@@ -1,20 +1,24 @@
 package betting.main.webapp;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
-@RestController
-@RequestMapping("/players")
+import javax.ejb.EJB;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import betting.main.data.PlayerDTO;
+
+@Controller
 public class PlayerController {
 
-	@Autowired
-	private PlayerService playerService;
+	@EJB
+	PlayerService playerService;
 	
-	
-	@GetMapping
-	public Iterable findAll() {
+	@GetMapping("/players")
+	public List<PlayerDTO> getAllPlayers() {
 		return playerService.getListOfPlayers();
 	}
+
 }
+

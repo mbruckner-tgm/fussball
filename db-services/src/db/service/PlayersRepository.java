@@ -2,6 +2,7 @@ package db.service;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import db.entity.Player;
 
 @Stateless
+@LocalBean
 public class PlayersRepository {
 
 	@PersistenceContext(unitName = "betting-db")
