@@ -1,0 +1,5 @@
+/target/
+/src/main/resources/deployments/
+/src/main/resources/log/
+/src/main/resources/configuration/standalone_xml_history/
+/src/main/resources/tmp/
