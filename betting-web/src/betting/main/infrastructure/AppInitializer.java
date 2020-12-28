@@ -2,24 +2,26 @@ package betting.main.infrastructure;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.filter.DelegatingFilterProxy;
+
+import betting.main.config.WebSecurityConfig;
 
 public class AppInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+		context.register(WebSecurityConfig.class);
+
 		context.scan("betting.main");
 		context.scan("db");
-		container.addListener(new ContextLoaderListener(context));
 
-		ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher", new DispatcherServlet(context));
-		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/");
+		container.addListener(new ContextLoaderListener(context));
+		container.addFilter("securityFilter", new DelegatingFilterProxy("springSecurityFilterChain"))
+				.addMappingForUrlPatterns(null, false, "/*");
 	}
 }

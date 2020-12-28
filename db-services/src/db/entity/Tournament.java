@@ -23,9 +23,6 @@ public class Tournament implements Serializable {
 	@Column(name="tournament_name")
 	private String tournamentName;
 
-	@Column(name="tournament_year")
-	private Integer tournamentYear;
-
 	//bi-directional many-to-one association to Match
 	@OneToMany(mappedBy="tournament")
 	private List<Match> matches;
@@ -47,14 +44,6 @@ public class Tournament implements Serializable {
 
 	public void setTournamentName(String tournamentName) {
 		this.tournamentName = tournamentName;
-	}
-
-	public Integer getTournamentYear() {
-		return this.tournamentYear;
-	}
-
-	public void setTournamentYear(Integer tournamentYear) {
-		this.tournamentYear = tournamentYear;
 	}
 
 	public List<Match> getMatches() {

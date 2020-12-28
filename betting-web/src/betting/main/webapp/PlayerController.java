@@ -17,11 +17,11 @@ public class PlayerController {
 	@RequestMapping(value = "/players", method = RequestMethod.GET)
 	@ResponseBody
 	public String getAllPlayers() {
-		StringBuilder builder = new StringBuilder("Wettspieler:\n");
+		StringBuilder builder = new StringBuilder("Wettspieler:\n\t");
 
 		for (PlayerDTO player : playerService.getListOfPlayers()) {
-			builder.append("\n");
-			builder.append("PlayerId: " + player.getPlayerId() + " - PlayerName: " + player.getPlayerName() + "\n");
+			builder.append("\n\t");
+			builder.append("PlayerId: " + player.getPlayerId() + " - PlayerName: " + player.getPlayerName() + "\n\t");
 		}
 
 		return builder.toString();

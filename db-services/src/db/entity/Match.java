@@ -15,38 +15,28 @@ import java.util.List;
 public class Match implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private MatchPK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.TABLE)
+	@Column(name="match_id")
+	private String matchId;
 
-	@Column(name="home_team_goals")
-	private Integer homeTeamGoals;
+	private String matchresult;
 
-	@Column(name="home_team_points")
-	private Integer homeTeamPoints;
+	@Column(name="team1_goals")
+	private Integer team1Goals;
 
-	@Column(name="opponent_team_goals")
-	private Integer opponentTeamGoals;
+	@Column(name="team1_id")
+	private String team1Id;
 
-	@Column(name="opponent_team_points")
-	private Integer opponentTeamPoints;
+	@Column(name="team2_goals")
+	private Integer team2Goals;
+
+	@Column(name="team2_id")
+	private String team2Id;
 
 	//bi-directional many-to-one association to BettingPick
-	@OneToMany(mappedBy="match1")
-	private List<BettingPick> bettingPicks1;
-
-	//bi-directional many-to-one association to BettingPick
-	@OneToMany(mappedBy="match2")
-	private List<BettingPick> bettingPicks2;
-
-	//bi-directional many-to-one association to Team
-	@ManyToOne
-	@JoinColumn(name="home_team_id")
-	private Team team1;
-
-	//bi-directional many-to-one association to Team
-	@ManyToOne
-	@JoinColumn(name="opponent_team_id")
-	private Team team2;
+	@OneToMany(mappedBy="match")
+	private List<BettingPick> bettingPicks;
 
 	//bi-directional many-to-one association to Tournament
 	@ManyToOne
@@ -56,104 +46,74 @@ public class Match implements Serializable {
 	public Match() {
 	}
 
-	public MatchPK getId() {
-		return this.id;
+	public String getMatchId() {
+		return this.matchId;
 	}
 
-	public void setId(MatchPK id) {
-		this.id = id;
+	public void setMatchId(String matchId) {
+		this.matchId = matchId;
 	}
 
-	public Integer getHomeTeamGoals() {
-		return this.homeTeamGoals;
+	public String getMatchresult() {
+		return this.matchresult;
 	}
 
-	public void setHomeTeamGoals(Integer homeTeamGoals) {
-		this.homeTeamGoals = homeTeamGoals;
+	public void setMatchresult(String matchresult) {
+		this.matchresult = matchresult;
 	}
 
-	public Integer getHomeTeamPoints() {
-		return this.homeTeamPoints;
+	public Integer getTeam1Goals() {
+		return this.team1Goals;
 	}
 
-	public void setHomeTeamPoints(Integer homeTeamPoints) {
-		this.homeTeamPoints = homeTeamPoints;
+	public void setTeam1Goals(Integer team1Goals) {
+		this.team1Goals = team1Goals;
 	}
 
-	public Integer getOpponentTeamGoals() {
-		return this.opponentTeamGoals;
+	public String getTeam1Id() {
+		return this.team1Id;
 	}
 
-	public void setOpponentTeamGoals(Integer opponentTeamGoals) {
-		this.opponentTeamGoals = opponentTeamGoals;
+	public void setTeam1Id(String team1Id) {
+		this.team1Id = team1Id;
 	}
 
-	public Integer getOpponentTeamPoints() {
-		return this.opponentTeamPoints;
+	public Integer getTeam2Goals() {
+		return this.team2Goals;
 	}
 
-	public void setOpponentTeamPoints(Integer opponentTeamPoints) {
-		this.opponentTeamPoints = opponentTeamPoints;
+	public void setTeam2Goals(Integer team2Goals) {
+		this.team2Goals = team2Goals;
 	}
 
-	public List<BettingPick> getBettingPicks1() {
-		return this.bettingPicks1;
+	public String getTeam2Id() {
+		return this.team2Id;
 	}
 
-	public void setBettingPicks1(List<BettingPick> bettingPicks1) {
-		this.bettingPicks1 = bettingPicks1;
+	public void setTeam2Id(String team2Id) {
+		this.team2Id = team2Id;
 	}
 
-	public BettingPick addBettingPicks1(BettingPick bettingPicks1) {
-		getBettingPicks1().add(bettingPicks1);
-		bettingPicks1.setMatch1(this);
-
-		return bettingPicks1;
+	public List<BettingPick> getBettingPicks() {
+		return this.bettingPicks;
 	}
 
-	public BettingPick removeBettingPicks1(BettingPick bettingPicks1) {
-		getBettingPicks1().remove(bettingPicks1);
-		bettingPicks1.setMatch1(null);
-
-		return bettingPicks1;
+	public void setBettingPicks(List<BettingPick> bettingPicks) {
+		this.bettingPicks = bettingPicks;
 	}
 
-	public List<BettingPick> getBettingPicks2() {
-		return this.bettingPicks2;
+	public BettingPick addBettingPick(BettingPick bettingPick) {
+		getBettingPicks().add(bettingPick);
+		bettingPick.setMatch(this);
+
+		return bettingPick;
 	}
 
-	public void setBettingPicks2(List<BettingPick> bettingPicks2) {
-		this.bettingPicks2 = bettingPicks2;
-	}
+	public BettingPick removeBettingPick(BettingPick bettingPick) {
+		getBettingPicks().remove(bettingPick);
+		bettingPick.setMatch(null);
 
-	public BettingPick addBettingPicks2(BettingPick bettingPicks2) {
-		getBettingPicks2().add(bettingPicks2);
-		bettingPicks2.setMatch2(this);
-
-		return bettingPicks2;
-	}
-
-	public BettingPick removeBettingPicks2(BettingPick bettingPicks2) {
-		getBettingPicks2().remove(bettingPicks2);
-		bettingPicks2.setMatch2(null);
-
-		return bettingPicks2;
-	}
-
-	public Team getTeam1() {
-		return this.team1;
-	}
-
-	public void setTeam1(Team team1) {
-		this.team1 = team1;
-	}
-
-	public Team getTeam2() {
-		return this.team2;
-	}
-
-	public void setTeam2(Team team2) {
-		this.team2 = team2;
+		return bettingPick;
 	}
 
 	public Tournament getTournament() {

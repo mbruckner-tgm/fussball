@@ -3,8 +3,9 @@ package db.service;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import db.entity.Player;
@@ -12,11 +13,12 @@ import db.entity.Player;
 @Repository("playersRepository")
 public class PlayersRepository {
 
-	@Qualifier(value = "entityManager")
-	private EntityManager entityManager;
+	@PersistenceContext
+	EntityManager entityManager;
 
 	public List<Player> selectAllPlayers() {
-		return entityManager.createNamedQuery("findAll", Player.class).getResultList();
+		Query query = entityManager.createNamedQuery("Player.findAll");
+		return query.getResultList();
 	}
 
 	public void insertNewPlayer(Player newPlayer) {

@@ -17,45 +17,23 @@ public class BettingPick implements Serializable {
 	@EmbeddedId
 	private BettingPickPK id;
 
-	@Column(name="betting_pick")
-	private String bettingPick;
+	private String matchresult;
 
-	@Column(name="betting_pick_points")
-	private Integer bettingPickPoints;
+	@Column(name="team1_goals")
+	private Integer team1Goals;
 
-	@Column(name="betting_pick_score")
-	private String bettingPickScore;
-
-	//bi-directional many-to-one association to Match
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="match_day", referencedColumnName="match_day"),
-		@JoinColumn(name="match_id", referencedColumnName="match_id"),
-		@JoinColumn(name="match_tournament_id", referencedColumnName="tournament_id")
-		})
-	private Match match1;
+	@Column(name="team2_goals")
+	private Integer team2Goals;
 
 	//bi-directional many-to-one association to Match
 	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="match_day", referencedColumnName="match_day"),
-		@JoinColumn(name="match_id", referencedColumnName="match_id"),
-		@JoinColumn(name="match_tournament_id", referencedColumnName="tournament_id")
-		})
-	private Match match2;
+	@JoinColumn(name="match_id")
+	private Match match;
 
 	//bi-directional many-to-one association to Player
 	@ManyToOne
 	@JoinColumn(name="player_id")
 	private Player player;
-
-	//bi-directional many-to-one association to BettingPicksCollection
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="betting_pick_collection_day", referencedColumnName="betting_pick_collection_day"),
-		@JoinColumn(name="betting_pick_collection_id", referencedColumnName="betting_pick_collection_id")
-		})
-	private BettingPicksCollection bettingPicksCollection;
 
 	public BettingPick() {
 	}
@@ -68,44 +46,36 @@ public class BettingPick implements Serializable {
 		this.id = id;
 	}
 
-	public String getBettingPick() {
-		return this.bettingPick;
+	public String getMatchresult() {
+		return this.matchresult;
 	}
 
-	public void setBettingPick(String bettingPick) {
-		this.bettingPick = bettingPick;
+	public void setMatchresult(String matchresult) {
+		this.matchresult = matchresult;
 	}
 
-	public Integer getBettingPickPoints() {
-		return this.bettingPickPoints;
+	public Integer getTeam1Goals() {
+		return this.team1Goals;
 	}
 
-	public void setBettingPickPoints(Integer bettingPickPoints) {
-		this.bettingPickPoints = bettingPickPoints;
+	public void setTeam1Goals(Integer team1Goals) {
+		this.team1Goals = team1Goals;
 	}
 
-	public String getBettingPickScore() {
-		return this.bettingPickScore;
+	public Integer getTeam2Goals() {
+		return this.team2Goals;
 	}
 
-	public void setBettingPickScore(String bettingPickScore) {
-		this.bettingPickScore = bettingPickScore;
+	public void setTeam2Goals(Integer team2Goals) {
+		this.team2Goals = team2Goals;
 	}
 
-	public Match getMatch1() {
-		return this.match1;
+	public Match getMatch() {
+		return this.match;
 	}
 
-	public void setMatch1(Match match1) {
-		this.match1 = match1;
-	}
-
-	public Match getMatch2() {
-		return this.match2;
-	}
-
-	public void setMatch2(Match match2) {
-		this.match2 = match2;
+	public void setMatch(Match match) {
+		this.match = match;
 	}
 
 	public Player getPlayer() {
@@ -114,14 +84,6 @@ public class BettingPick implements Serializable {
 
 	public void setPlayer(Player player) {
 		this.player = player;
-	}
-
-	public BettingPicksCollection getBettingPicksCollection() {
-		return this.bettingPicksCollection;
-	}
-
-	public void setBettingPicksCollection(BettingPicksCollection bettingPicksCollection) {
-		this.bettingPicksCollection = bettingPicksCollection;
 	}
 
 }

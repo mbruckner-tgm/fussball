@@ -18,7 +18,7 @@ public class Player implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name="player_id")
-	private String playerId;
+	private Integer playerId;
 
 	@Column(name="player_name")
 	private String playerName;
@@ -27,18 +27,14 @@ public class Player implements Serializable {
 	@OneToMany(mappedBy="player")
 	private List<BettingPick> bettingPicks;
 
-	//bi-directional many-to-one association to BettingPicksCollection
-	@OneToMany(mappedBy="player")
-	private List<BettingPicksCollection> bettingPicksCollections;
-
 	public Player() {
 	}
 
-	public String getPlayerId() {
+	public Integer getPlayerId() {
 		return this.playerId;
 	}
 
-	public void setPlayerId(String playerId) {
+	public void setPlayerId(Integer playerId) {
 		this.playerId = playerId;
 	}
 
@@ -70,28 +66,6 @@ public class Player implements Serializable {
 		bettingPick.setPlayer(null);
 
 		return bettingPick;
-	}
-
-	public List<BettingPicksCollection> getBettingPicksCollections() {
-		return this.bettingPicksCollections;
-	}
-
-	public void setBettingPicksCollections(List<BettingPicksCollection> bettingPicksCollections) {
-		this.bettingPicksCollections = bettingPicksCollections;
-	}
-
-	public BettingPicksCollection addBettingPicksCollection(BettingPicksCollection bettingPicksCollection) {
-		getBettingPicksCollections().add(bettingPicksCollection);
-		bettingPicksCollection.setPlayer(this);
-
-		return bettingPicksCollection;
-	}
-
-	public BettingPicksCollection removeBettingPicksCollection(BettingPicksCollection bettingPicksCollection) {
-		getBettingPicksCollections().remove(bettingPicksCollection);
-		bettingPicksCollection.setPlayer(null);
-
-		return bettingPicksCollection;
 	}
 
 }

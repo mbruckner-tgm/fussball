@@ -13,11 +13,10 @@ public class MapperClass {
 
 	private PlayerDTO createPlayerDTOFromPlayer(Player player) {
 		PlayerDTO playerDTO = new PlayerDTO();
-		playerDTO.setPlayerId(player.getPlayerId());
+		playerDTO.setPlayerId(player.getPlayerId().toString());
 		playerDTO.setPlayerName(player.getPlayerName());
-		
+
 		return playerDTO;
 	}
 
-	
 }
