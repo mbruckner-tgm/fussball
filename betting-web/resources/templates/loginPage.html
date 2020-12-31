@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title>Login</title>
+      
+      	<!-- Bootstrap core CSS -->
+      	<link href="../css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    	<!-- Custom styles for this template -->
+    	<link href="../css/signin.css" th:href="@{/css/signin.css}" rel="stylesheet">
+    
+   </head>
+   <body>
+	<main class="form-signin">
+		<form name='f' th:action="@{/j_spring_security_check}" method='POST'>
+  		<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+  		<label for="inputUsername" class="visually-hidden">Username</label>
+  		<input type="username" name="username" id="inputUsername" class="form-control" placeholder="username" required autofocus>
+  		<label for="inputPassword" class="visually-hidden">Password</label>
+  		<input type="password" name="password" id="inputPassword" class="form-control" placeholder="password" required>
+   		<!-- /login?error=true -->
+	      <div th:if="${#request.getParameter('error') == 'true'}"
+	            style="color:red;margin:10px 0px;">
+	         Login Failed!!!<br />
+	         Reason :
+	         <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+	            th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+	                Static summary
+	         </span>
+	      </div>
+	    <div class="checkbox mb-3">
+	      <label>
+	        <input type="checkbox" value="remember-me"> Remember me
+	      </label>
+	    </div>
+	    <button class="w-100 btn btn-lg btn-primary" type="submit" value="submit">Sign in</button>
+	  </form>
+	</main>       
+   </body>
+</html>

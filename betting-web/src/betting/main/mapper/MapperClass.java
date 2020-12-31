@@ -2,21 +2,21 @@ package betting.main.mapper;
 
 import java.util.List;
 
-import betting.main.data.PlayerDTO;
-import db.entity.Player;
+import betting.main.data.AppUserDTO;
+import db.entity.AppUser;
 
 public class MapperClass {
 
-	public void mappePlayersToListOfPlayerDTOs(List<Player> players, List<PlayerDTO> listOfPlayerDTOs) {
-		players.forEach(player -> listOfPlayerDTOs.add(createPlayerDTOFromPlayer(player)));
+	public void mappeAppUsersToListOfAppUserDTOs(List<AppUser> appUsers, List<AppUserDTO> listOfAppUserDTOs) {
+		appUsers.forEach(appUserDB -> listOfAppUserDTOs.add(createAppUserDTOFromPlayer(appUserDB)));
 	}
 
-	private PlayerDTO createPlayerDTOFromPlayer(Player player) {
-		PlayerDTO playerDTO = new PlayerDTO();
-		playerDTO.setPlayerId(player.getPlayerId().toString());
-		playerDTO.setPlayerName(player.getPlayerName());
-
-		return playerDTO;
+	private AppUserDTO createAppUserDTOFromPlayer(AppUser appUserDB) {
+		AppUserDTO appUserDTO = new AppUserDTO();
+		appUserDTO.setUserId(appUserDB.getUserId());
+		appUserDTO.setUserName(appUserDB.getUserName());
+		appUserDTO.setEncrytedPassword(appUserDB.getEncryptedPassword());
+		return appUserDTO;
 	}
 
 }
