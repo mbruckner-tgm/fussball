@@ -59,7 +59,7 @@ public class DbConnectionManager {
 	protected Map<String, Object> getVendorProperties() {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put(PersistenceUnitProperties.WEAVING, "false");
-		map.put(PersistenceUnitProperties.DDL_GENERATION, "create-or-extend-tables");
+		map.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.NONE);
 		return map;
 	}
 

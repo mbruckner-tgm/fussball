@@ -18,8 +18,8 @@ public class BettingPickPK implements Serializable {
 	@Column(name="betting_pick_id")
 	private String bettingPickId;
 
-	@Column(name="player_id", insertable=false, updatable=false)
-	private Integer playerId;
+	@Column(name="user_id", insertable=false, updatable=false)
+	private Integer userId;
 
 	public BettingPickPK() {
 	}
@@ -35,11 +35,11 @@ public class BettingPickPK implements Serializable {
 	public void setBettingPickId(String bettingPickId) {
 		this.bettingPickId = bettingPickId;
 	}
-	public Integer getPlayerId() {
-		return this.playerId;
+	public Integer getUserId() {
+		return this.userId;
 	}
-	public void setPlayerId(Integer playerId) {
-		this.playerId = playerId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public boolean equals(Object other) {
@@ -53,7 +53,7 @@ public class BettingPickPK implements Serializable {
 		return 
 			this.bettingPicksCollectionId.equals(castOther.bettingPicksCollectionId)
 			&& this.bettingPickId.equals(castOther.bettingPickId)
-			&& this.playerId.equals(castOther.playerId);
+			&& this.userId.equals(castOther.userId);
 	}
 
 	public int hashCode() {
@@ -61,7 +61,7 @@ public class BettingPickPK implements Serializable {
 		int hash = 17;
 		hash = hash * prime + this.bettingPicksCollectionId.hashCode();
 		hash = hash * prime + this.bettingPickId.hashCode();
-		hash = hash * prime + this.playerId.hashCode();
+		hash = hash * prime + this.userId.hashCode();
 		
 		return hash;
 	}

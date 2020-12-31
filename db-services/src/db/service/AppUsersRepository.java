@@ -1,28 +1,33 @@
 package db.service;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import db.entity.Player;
+import db.entity.AppUser;
 
-@Repository("playersRepository")
-public class PlayersRepository {
+@Transactional
+@Repository("appUsersRepository")
+public class AppUsersRepository {
 
 	@PersistenceContext
-	EntityManager entityManager;
+	private EntityManager entityManager;
 
-	public List<Player> selectAllPlayers() {
-		Query query = entityManager.createNamedQuery("Player.findAll");
-		return query.getResultList();
+	public AppUser findUserAccount(String userName) {
+		try {
+			String sql = "Select e from " + AppUser.class.getName() + " e " //
+					+ " Where e.userName = :userName ";
+
+			Query query = entityManager.createQuery(sql, AppUser.class);
+			query.setParameter("userName", userName);
+
+			return (AppUser) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
-
-	public void insertNewPlayer(Player newPlayer) {
-		entityManager.persist(newPlayer);
-	}
-
 }
