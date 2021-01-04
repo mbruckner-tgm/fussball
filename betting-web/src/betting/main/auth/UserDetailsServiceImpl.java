@@ -10,11 +10,16 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import betting.main.data.AppUserDTO;
+import betting.main.exception.DbZugriffException;
+import betting.main.exception.PasswordMissmatchException;
+import betting.main.exception.UserAlreadyExistsException;
 import db.entity.AppUser;
-import db.service.AppRolesRepository;
 import db.service.AppUsersRepository;
+import db.service.EntityManagerException;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -22,37 +27,53 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private AppUsersRepository appUsersRepo;
 
-	@Autowired
-	private AppRolesRepository appRolesRepo;
+	public void registerNewUser(AppUserDTO appUserDTO)
+			throws DbZugriffException, PasswordMissmatchException, UserAlreadyExistsException {
+		try {
+			validateUserPassword(appUserDTO);
+
+			if (userAlreadyExists(appUserDTO.getUserName()))
+				throw new UserAlreadyExistsException();
+
+			appUsersRepo.insertUserAccount(appUserDTO.getUserName(),
+					new BCryptPasswordEncoder().encode(appUserDTO.getRealPassword()));
+		} catch (EntityManagerException e) {
+			throw new DbZugriffException(e.getException(), e.getExceptionMessage());
+		}
+	}
+
+	private void validateUserPassword(AppUserDTO appUserDTO) throws PasswordMissmatchException {
+		if (!appUserDTO.getRealPassword().equalsIgnoreCase(appUserDTO.getConfirmPassword()))
+			throw new PasswordMissmatchException();
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
 		AppUser appUser = appUsersRepo.findUserAccount(userName);
-
 		if (appUser == null) {
 			System.out.println("User not found! " + userName);
 			throw new UsernameNotFoundException("User " + userName + " was not found in the database");
 		}
-
 		System.out.println("Found User: " + appUser);
 
 		// [ROLE_USER, ROLE_ADMIN,..]
-		List<String> roleNames = appRolesRepo.getRoleNames(appUser.getUserId());
 
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-		if (roleNames != null) {
-			for (String role : roleNames) {
-				// ROLE_USER, ROLE_ADMIN,..
-				GrantedAuthority authority = new SimpleGrantedAuthority(role);
-				grantList.add(authority);
-			}
+		if (appUser.getAppRole().getRoleName() != null) {
+			// ROLE_USER, ROLE_ADMIN,..
+			GrantedAuthority authority = new SimpleGrantedAuthority(appUser.getAppRole().getRoleName());
+			grantList.add(authority);
 		}
 
 		UserDetails userDetails = new User(appUser.getUserName(), //
 				appUser.getEncryptedPassword(), grantList);
 
 		return userDetails;
+	}
+
+	private boolean userAlreadyExists(String userName) throws UserAlreadyExistsException {
+		return appUsersRepo.findUserAccount(userName) != null;
 	}
 
 }

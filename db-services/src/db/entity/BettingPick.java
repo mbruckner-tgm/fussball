@@ -25,15 +25,15 @@ public class BettingPick implements Serializable {
 	@Column(name="team2_goals")
 	private Integer team2Goals;
 
+	//bi-directional many-to-one association to AppUser
+	@ManyToOne
+	@JoinColumn(name="user_name")
+	private AppUser appUser;
+
 	//bi-directional many-to-one association to Match
 	@ManyToOne
 	@JoinColumn(name="match_id")
 	private Match match;
-
-	//bi-directional many-to-one association to AppUser
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private AppUser appUser;
 
 	public BettingPick() {
 	}
@@ -70,20 +70,20 @@ public class BettingPick implements Serializable {
 		this.team2Goals = team2Goals;
 	}
 
-	public Match getMatch() {
-		return this.match;
-	}
-
-	public void setMatch(Match match) {
-		this.match = match;
-	}
-
 	public AppUser getAppUser() {
 		return this.appUser;
 	}
 
 	public void setAppUser(AppUser appUser) {
 		this.appUser = appUser;
+	}
+
+	public Match getMatch() {
+		return this.match;
+	}
+
+	public void setMatch(Match match) {
+		this.match = match;
 	}
 
 }

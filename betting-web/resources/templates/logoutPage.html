@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+  		<title>Logout</title>
+    	<!-- Bootstrap core CSS -->
+   		<link href="../css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css" th:href="@{/css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css}" rel="stylesheet">
+    	<!-- Custom styles for this template -->
+    	<link href="../css/signout.css" th:href="@{/css/signout.css}" rel="stylesheet">
+	</head>
+	<body>
+    
+   <body>       
+      
+      <main class="form-signout">
+  		<h1 class="h3 mb-3 fw-normal">Logout Successful!</h1>
+  		<br>
+  		<form th:action="@{/login}">
+        	<button type="submit"  class="w-100 btn btn-lg btn-primary">Back to Login</button>
+        </form> 
+	</main>
+   </body>
+    
+</html>

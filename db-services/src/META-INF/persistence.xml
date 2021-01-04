@@ -14,7 +14,6 @@
  		<class>db.entity.PersistentLogin</class>
  		<class>db.entity.Team</class>
  		<class>db.entity.Tournament</class>
- 		<class>db.entity.UserRole</class>
 	
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

@@ -1,16 +1,32 @@
 package betting.main.auth;
 
 import java.security.Principal;
+import java.util.logging.Logger;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import betting.main.data.AppUserDTO;
+import betting.main.exception.DbZugriffException;
+import betting.main.exception.PasswordMissmatchException;
+import betting.main.exception.UserAlreadyExistsException;
 
 @Controller
 public class MainController {
+
+	private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
+
+	@Autowired
+	private UserDetailsServiceImpl userService;
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminPage(Model model, Principal principal) {
@@ -35,10 +51,49 @@ public class MainController {
 		return "loginPage";
 	}
 
-	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
+	public ModelAndView signUpPage() {
+		ModelAndView model = new ModelAndView("signUpPage");
+		model.addObject("newAppUserDTO", new AppUserDTO());
+		return model;
+	}
+
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
+	public ModelAndView signUpNewUser(@Valid AppUserDTO newAppUserDTO, BindingResult bindingResult) {
+		ModelAndView model = new ModelAndView("signUpPage");
+		if (bindingResult.hasErrors()) {
+			bindingResult.rejectValue(bindingResult.getFieldError().getField(),
+					bindingResult.getFieldError().getCode());
+			model.addObject("registrationForm", newAppUserDTO);
+			return model;
+		}
+		try {
+			userService.registerNewUser(newAppUserDTO);
+		} catch (DbZugriffException e) {
+			LOGGER.severe(e.getException() + " - Message: " + e.getExceptionMessage());
+			bindingResult.rejectValue("newAppUserDTO", "newAppUserDTO",
+					"Bei der Neuanlage ihres Users ist etwas schiefgelaufen. Bitte Wenden Sie sich an den Admin dieser Seite!");
+			model.addObject("newAppUserDTO", newAppUserDTO);
+			return model;
+		} catch (PasswordMissmatchException e) {
+			LOGGER.severe("PasswordMissmatchException - Message: " + e.getExceptionMessage());
+			bindingResult.rejectValue("confirmPassword", "newAppUserDTO.confirmPassword", e.getExceptionMessage());
+			model.addObject("newAppUserDTO", newAppUserDTO);
+			return model;
+		} catch (UserAlreadyExistsException e) {
+			LOGGER.severe("UserAlreadyExistsException - Message: " + e.getExceptionMessage());
+			bindingResult.rejectValue("userName", "newAppUserDTO.userName", e.getExceptionMessage());
+			model.addObject("newAppUserDTO", newAppUserDTO);
+			return model;
+		}
+		model.setViewName("loginPage");
+		return model;
+	}
+
+	@RequestMapping(value = "/logoutPage", method = RequestMethod.GET)
 	public String logoutSuccessfulPage(Model model) {
 		model.addAttribute("title", "Logout");
-		return "logoutSuccessfulPage";
+		return "logoutPage";
 	}
 
 	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)

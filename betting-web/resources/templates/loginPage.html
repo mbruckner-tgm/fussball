@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
    <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       <title>Login</title>
       
       	<!-- Bootstrap core CSS -->
-      	<link href="../css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+      	<link href="../css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css" th:href="@{/css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css}" rel="stylesheet">
     	<!-- Custom styles for this template -->
     	<link href="../css/signin.css" th:href="@{/css/signin.css}" rel="stylesheet">
     
@@ -12,11 +13,13 @@
    <body>
 	<main class="form-signin">
 		<form name='f' th:action="@{/j_spring_security_check}" method='POST'>
-  		<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+  		<h1 class="h3 mb-3 fw-normal" >Sign In or  
+  			<a th:href="@{/signUp}">Sign Up</a>
+  		</h1>
   		<label for="inputUsername" class="visually-hidden">Username</label>
-  		<input type="username" name="username" id="inputUsername" class="form-control" placeholder="username" required autofocus>
+  		<input name="username" id="inputUsername" class="form-control" placeholder="username" required autofocus>
   		<label for="inputPassword" class="visually-hidden">Password</label>
-  		<input type="password" name="password" id="inputPassword" class="form-control" placeholder="password" required>
+  		<input name="password" id="inputPassword" class="form-control" placeholder="password" required>
    		<!-- /login?error=true -->
 	      <div th:if="${#request.getParameter('error') == 'true'}"
 	            style="color:red;margin:10px 0px;">

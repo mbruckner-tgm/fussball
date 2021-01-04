@@ -17,25 +17,14 @@ public class AppRole implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
-	@Column(name="role_id")
-	private Long roleId;
-
 	@Column(name="role_name")
 	private String roleName;
 
-	//bi-directional many-to-one association to UserRole
+	//bi-directional many-to-one association to AppUser
 	@OneToMany(mappedBy="appRole")
-	private List<UserRole> userRoles;
+	private List<AppUser> appUsers;
 
 	public AppRole() {
-	}
-
-	public Long getRoleId() {
-		return this.roleId;
-	}
-
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
 	}
 
 	public String getRoleName() {
@@ -46,26 +35,26 @@ public class AppRole implements Serializable {
 		this.roleName = roleName;
 	}
 
-	public List<UserRole> getUserRoles() {
-		return this.userRoles;
+	public List<AppUser> getAppUsers() {
+		return this.appUsers;
 	}
 
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
+	public void setAppUsers(List<AppUser> appUsers) {
+		this.appUsers = appUsers;
 	}
 
-	public UserRole addUserRole(UserRole userRole) {
-		getUserRoles().add(userRole);
-		userRole.setAppRole(this);
+	public AppUser addAppUser(AppUser appUser) {
+		getAppUsers().add(appUser);
+		appUser.setAppRole(this);
 
-		return userRole;
+		return appUser;
 	}
 
-	public UserRole removeUserRole(UserRole userRole) {
-		getUserRoles().remove(userRole);
-		userRole.setAppRole(null);
+	public AppUser removeAppUser(AppUser appUser) {
+		getAppUsers().remove(appUser);
+		appUser.setAppRole(null);
 
-		return userRole;
+		return appUser;
 	}
 
 }

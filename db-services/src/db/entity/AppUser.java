@@ -17,20 +17,18 @@ public class AppUser implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
-	@Column(name="user_id")
-	private Long userId;
+	@Column(name="user_name")
+	private String userName;
 
 	private Integer enabled;
 
 	@Column(name="encrypted_password")
 	private String encryptedPassword;
 
-	@Column(name="user_name")
-	private String userName;
-
-	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="appUser")
-	private List<UserRole> userRoles;
+	//bi-directional many-to-one association to AppRole
+	@ManyToOne
+	@JoinColumn(name="role_name")
+	private AppRole appRole;
 
 	//bi-directional many-to-one association to BettingPick
 	@OneToMany(mappedBy="appUser")
@@ -39,12 +37,12 @@ public class AppUser implements Serializable {
 	public AppUser() {
 	}
 
-	public Long getUserId() {
-		return this.userId;
+	public String getUserName() {
+		return this.userName;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Integer getEnabled() {
@@ -63,34 +61,12 @@ public class AppUser implements Serializable {
 		this.encryptedPassword = encryptedPassword;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public AppRole getAppRole() {
+		return this.appRole;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public List<UserRole> getUserRoles() {
-		return this.userRoles;
-	}
-
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	public UserRole addUserRole(UserRole userRole) {
-		getUserRoles().add(userRole);
-		userRole.setAppUser(this);
-
-		return userRole;
-	}
-
-	public UserRole removeUserRole(UserRole userRole) {
-		getUserRoles().remove(userRole);
-		userRole.setAppUser(null);
-
-		return userRole;
+	public void setAppRole(AppRole appRole) {
+		this.appRole = appRole;
 	}
 
 	public List<BettingPick> getBettingPicks() {

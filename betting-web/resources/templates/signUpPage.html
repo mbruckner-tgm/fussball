@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <title>Sign Up</title>
+      
+      	<!-- Bootstrap core CSS -->
+      	<link href="../css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css" th:href="@{/css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css}" rel="stylesheet">
+    	<!-- Custom styles for this template -->
+    	<link href="../css/signin.css" th:href="@{/css/signin.css}" rel="stylesheet">
+    
+   </head>
+   <body>
+	<main class="form-signin">
+		<form name='f' th:action="@{/signUp}" th:object="${newAppUserDTO}" method='POST'>
+		 <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+          <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+          </div>
+  		<h1 class="h3 mb-3 fw-normal" ><a th:href="@{/login}">Sign In </a> or  
+  			Sign Up
+  		</h1>
+  		<label for="inputUsername" class="visually-hidden">Username</label>
+  		<input th:field="*{userName}" class="form-control" placeholder="username" required autofocus>
+  		<label for="inputPassword" class="visually-hidden">Password</label>
+  		<input th:field="*{realPassword}" class="form-control" placeholder="password" required>
+  		<label for="inputConfirmPassword" class="visually-hidden">ConfirmPassword</label>
+  		<input th:field="*{confirmPassword}" class="form-control" placeholder="confirm password"  required>
+  		  <button class="w-100 btn btn-lg btn-primary" type="submit" value="submit">Sign up</button>
+	 	 </form>
+	</main>       
+   </body>
+</html>
