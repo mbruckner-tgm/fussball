@@ -2,7 +2,7 @@ package db.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.sql.Timestamp;
 
 
 /**
@@ -15,43 +15,65 @@ import java.util.List;
 public class Match implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
-	@Column(name="match_id")
-	private String matchId;
+	@EmbeddedId
+	private MatchPK id;
+
+	@Column(name="anlage_user")
+	private String anlageUser;
+
+	@Column(name="anlage_zeitpunkt")
+	private Timestamp anlageZeitpunkt;
+
+	@Column(name="home_team_goals")
+	private Integer homeTeamGoals;
 
 	private String matchresult;
 
-	@Column(name="team1_goals")
-	private Integer team1Goals;
+	@Column(name="opponent_team_goals")
+	private Integer opponentTeamGoals;
 
-	@Column(name="team1_id")
-	private String team1Id;
+	@Column(name="tournament_id")
+	private String tournamentId;
 
-	@Column(name="team2_goals")
-	private Integer team2Goals;
+	@Column(name="update_user")
+	private String updateUser;
 
-	@Column(name="team2_id")
-	private String team2Id;
-
-	//bi-directional many-to-one association to BettingPick
-	@OneToMany(mappedBy="match")
-	private List<BettingPick> bettingPicks;
-
-	//bi-directional many-to-one association to Tournament
-	@ManyToOne
-	@JoinColumn(name="tournament_id")
-	private Tournament tournament;
+	@Column(name="update_zeitpunkt")
+	private Timestamp updateZeitpunkt;
 
 	public Match() {
 	}
 
-	public String getMatchId() {
-		return this.matchId;
+	public MatchPK getId() {
+		return this.id;
 	}
 
-	public void setMatchId(String matchId) {
-		this.matchId = matchId;
+	public void setId(MatchPK id) {
+		this.id = id;
+	}
+
+	public String getAnlageUser() {
+		return this.anlageUser;
+	}
+
+	public void setAnlageUser(String anlageUser) {
+		this.anlageUser = anlageUser;
+	}
+
+	public Timestamp getAnlageZeitpunkt() {
+		return this.anlageZeitpunkt;
+	}
+
+	public void setAnlageZeitpunkt(Timestamp anlageZeitpunkt) {
+		this.anlageZeitpunkt = anlageZeitpunkt;
+	}
+
+	public Integer getHomeTeamGoals() {
+		return this.homeTeamGoals;
+	}
+
+	public void setHomeTeamGoals(Integer homeTeamGoals) {
+		this.homeTeamGoals = homeTeamGoals;
 	}
 
 	public String getMatchresult() {
@@ -62,66 +84,36 @@ public class Match implements Serializable {
 		this.matchresult = matchresult;
 	}
 
-	public Integer getTeam1Goals() {
-		return this.team1Goals;
+	public Integer getOpponentTeamGoals() {
+		return this.opponentTeamGoals;
 	}
 
-	public void setTeam1Goals(Integer team1Goals) {
-		this.team1Goals = team1Goals;
+	public void setOpponentTeamGoals(Integer opponentTeamGoals) {
+		this.opponentTeamGoals = opponentTeamGoals;
 	}
 
-	public String getTeam1Id() {
-		return this.team1Id;
+	public String getTournamentId() {
+		return this.tournamentId;
 	}
 
-	public void setTeam1Id(String team1Id) {
-		this.team1Id = team1Id;
+	public void setTournamentId(String tournamentId) {
+		this.tournamentId = tournamentId;
 	}
 
-	public Integer getTeam2Goals() {
-		return this.team2Goals;
+	public String getUpdateUser() {
+		return this.updateUser;
 	}
 
-	public void setTeam2Goals(Integer team2Goals) {
-		this.team2Goals = team2Goals;
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
 	}
 
-	public String getTeam2Id() {
-		return this.team2Id;
+	public Timestamp getUpdateZeitpunkt() {
+		return this.updateZeitpunkt;
 	}
 
-	public void setTeam2Id(String team2Id) {
-		this.team2Id = team2Id;
-	}
-
-	public List<BettingPick> getBettingPicks() {
-		return this.bettingPicks;
-	}
-
-	public void setBettingPicks(List<BettingPick> bettingPicks) {
-		this.bettingPicks = bettingPicks;
-	}
-
-	public BettingPick addBettingPick(BettingPick bettingPick) {
-		getBettingPicks().add(bettingPick);
-		bettingPick.setMatch(this);
-
-		return bettingPick;
-	}
-
-	public BettingPick removeBettingPick(BettingPick bettingPick) {
-		getBettingPicks().remove(bettingPick);
-		bettingPick.setMatch(null);
-
-		return bettingPick;
-	}
-
-	public Tournament getTournament() {
-		return this.tournament;
-	}
-
-	public void setTournament(Tournament tournament) {
-		this.tournament = tournament;
+	public void setUpdateZeitpunkt(Timestamp updateZeitpunkt) {
+		this.updateZeitpunkt = updateZeitpunkt;
 	}
 
 }

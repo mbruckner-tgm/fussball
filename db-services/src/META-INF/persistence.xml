@@ -11,6 +11,7 @@
  		<class>db.entity.BettingPick</class>
  		<class>db.entity.BettingPickPK</class>
  		<class>db.entity.Match</class>
+ 		<class>db.entity.MatchPK</class>
  		<class>db.entity.PersistentLogin</class>
  		<class>db.entity.Team</class>
  		<class>db.entity.Tournament</class>

@@ -16,7 +16,6 @@ public class AppUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name="user_name")
 	private String userName;
 

@@ -40,6 +40,7 @@ public class DbConnectionManager {
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/betting_db");
 		dataSource.setUsername("michl");
 		dataSource.setPassword("michl");
+		dataSource.setConnectionProperties(null);
 		return dataSource;
 	}
 
@@ -47,7 +48,6 @@ public class DbConnectionManager {
 	public PlatformTransactionManager transactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-
 		return transactionManager;
 	}
 

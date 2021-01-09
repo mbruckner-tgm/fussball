@@ -1,6 +1,7 @@
-package betting.main.auth;
+package betting.main.webapp;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.validation.Valid;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import betting.main.auth.UserDetailsServiceImpl;
+import betting.main.auth.WebUtils;
 import betting.main.data.AppUserDTO;
+import betting.main.data.TurnierStatisitkDTO;
 import betting.main.exception.DbZugriffException;
 import betting.main.exception.PasswordMissmatchException;
 import betting.main.exception.UserAlreadyExistsException;
@@ -27,6 +31,9 @@ public class MainController {
 
 	@Autowired
 	private UserDetailsServiceImpl userService;
+	
+	@Autowired
+	private SpielerTabelleService spielerTabelleService;
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminPage(Model model, Principal principal) {
@@ -113,6 +120,14 @@ public class MainController {
 		model.addAttribute("userInfo", userInfo);
 
 		return "userInfoPage";
+	}
+	
+	@RequestMapping(value = "/spielerTabelle", method = RequestMethod.GET)
+	public String spielerTabelle(Model model) {
+		List<TurnierStatisitkDTO> turnierStats = spielerTabelleService.getTurnierStatistiken();
+		model.addAttribute("turnierStats",turnierStats);
+		
+		return "spielerTabelle";
 	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)

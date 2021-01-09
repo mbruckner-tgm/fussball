@@ -2,7 +2,7 @@ package db.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 
 /**
@@ -16,16 +16,19 @@ public class Tournament implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name="tournament_id")
 	private String tournamentId;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="tournament_end")
+	private Date tournamentEnd;
 
 	@Column(name="tournament_name")
 	private String tournamentName;
 
-	//bi-directional many-to-one association to Match
-	@OneToMany(mappedBy="tournament")
-	private List<Match> matches;
+	@Temporal(TemporalType.DATE)
+	@Column(name="tournament_start")
+	private Date tournamentStart;
 
 	public Tournament() {
 	}
@@ -38,6 +41,14 @@ public class Tournament implements Serializable {
 		this.tournamentId = tournamentId;
 	}
 
+	public Date getTournamentEnd() {
+		return this.tournamentEnd;
+	}
+
+	public void setTournamentEnd(Date tournamentEnd) {
+		this.tournamentEnd = tournamentEnd;
+	}
+
 	public String getTournamentName() {
 		return this.tournamentName;
 	}
@@ -46,26 +57,12 @@ public class Tournament implements Serializable {
 		this.tournamentName = tournamentName;
 	}
 
-	public List<Match> getMatches() {
-		return this.matches;
+	public Date getTournamentStart() {
+		return this.tournamentStart;
 	}
 
-	public void setMatches(List<Match> matches) {
-		this.matches = matches;
-	}
-
-	public Match addMatch(Match match) {
-		getMatches().add(match);
-		match.setTournament(this);
-
-		return match;
-	}
-
-	public Match removeMatch(Match match) {
-		getMatches().remove(match);
-		match.setTournament(null);
-
-		return match;
+	public void setTournamentStart(Date tournamentStart) {
+		this.tournamentStart = tournamentStart;
 	}
 
 }

@@ -16,7 +16,6 @@ public class AppRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name="role_name")
 	private String roleName;
 

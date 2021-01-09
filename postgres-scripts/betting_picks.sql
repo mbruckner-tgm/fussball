@@ -5,13 +5,12 @@ DROP TABLE IF EXISTS betting_picks;
 CREATE TABLE betting_picks (
 	betting_picks_collection_id VARCHAR(12),
 	betting_pick_id VARCHAR(17),
-	match_id VARCHAR(50),
-	player_id INT,
+	user_name VARCHAR(36),
+	match_id VARCHAR(50) NOT NULL,
+	betting_pick_result SMALLINT NOT NULL,
 	matchresult VARCHAR(1) NOT NULL,
-	home_team_goals INT ,
-	opponent_team_goals INT ,
-	PRIMARY KEY(betting_picks_collection_id,betting_pick_id,player_id),
-	FOREIGN KEY(match_id) REFERENCES matches (match_id) ON DELETE CASCADE,
-	FOREIGN KEY(player_id) REFERENCES players (player_id)
+	team1_goals INT ,
+	team2_goals INT ,
+	PRIMARY KEY(betting_picks_collection_id,betting_pick_id,user_name),
+	FOREIGN KEY(user_name) REFERENCES app_user (user_name)
 );
-

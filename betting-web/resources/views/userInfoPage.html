@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title>User Info</title>
+    	<!-- Bootstrap core CSS -->
+   		<link href="../css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css" th:href="@{/css/bootstrap-5.0.0-beta1/dist/css/bootstrap.min.css}" rel="stylesheet">
+    
+    	<!-- Custom styles for this template -->
+    	<link href="../css/starter-template.css" th:href="@{/css/starter-template.css}" rel="stylesheet">
+		<link href="../css/signout.css" th:href="@{/css/signout.css}" rel="stylesheet">
+    </head>
+	<body>
+
+	<th:block th:include="/navbar" ></th:block>  
+
+	<main class="container">
+		<div class="starter-template text-center py-5 px-3">
+			<h2>User Info Page</h2>
+			<h3>
+				Welcome : <span th:utext="${#request.userPrincipal.name}"></span>
+			</h3>
+			<b>This is protected page!</b> <br /> <br />
+			<div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+		</div>
+	</main>
+	<!-- /.container -->
+	<script src="../css/bootstrap-5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+       
+   </body>
+    
+</html>

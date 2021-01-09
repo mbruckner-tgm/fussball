@@ -1,5 +1,7 @@
 package db.service;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -19,6 +21,12 @@ public class AppUsersRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	
+	@SuppressWarnings("unchecked")
+	public List<AppUser> findAllUsers(){
+		return entityManager.createNamedQuery("AppUser.findAll").getResultList();
+	}
+	
 	public AppUser findUserAccount(String userName) throws NoResultException {
 		String sql = "Select e from " + AppUser.class.getName() + " e " //
 				+ " Where e.userName = :userName ";

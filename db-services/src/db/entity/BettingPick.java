@@ -17,6 +17,12 @@ public class BettingPick implements Serializable {
 	@EmbeddedId
 	private BettingPickPK id;
 
+	@Column(name="betting_pick_result")
+	private Integer bettingPickResult;
+
+	@Column(name="match_id")
+	private String matchId;
+
 	private String matchresult;
 
 	@Column(name="team1_goals")
@@ -30,11 +36,6 @@ public class BettingPick implements Serializable {
 	@JoinColumn(name="user_name")
 	private AppUser appUser;
 
-	//bi-directional many-to-one association to Match
-	@ManyToOne
-	@JoinColumn(name="match_id")
-	private Match match;
-
 	public BettingPick() {
 	}
 
@@ -44,6 +45,22 @@ public class BettingPick implements Serializable {
 
 	public void setId(BettingPickPK id) {
 		this.id = id;
+	}
+
+	public Integer getBettingPickResult() {
+		return this.bettingPickResult;
+	}
+
+	public void setBettingPickResult(Integer bettingPickResult) {
+		this.bettingPickResult = bettingPickResult;
+	}
+
+	public String getMatchId() {
+		return this.matchId;
+	}
+
+	public void setMatchId(String matchId) {
+		this.matchId = matchId;
 	}
 
 	public String getMatchresult() {
@@ -76,14 +93,6 @@ public class BettingPick implements Serializable {
 
 	public void setAppUser(AppUser appUser) {
 		this.appUser = appUser;
-	}
-
-	public Match getMatch() {
-		return this.match;
-	}
-
-	public void setMatch(Match match) {
-		this.match = match;
 	}
 
 }
