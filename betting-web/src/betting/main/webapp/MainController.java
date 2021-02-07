@@ -9,11 +9,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import betting.main.auth.UserDetailsServiceImpl;
@@ -24,38 +23,39 @@ import betting.main.exception.DbZugriffException;
 import betting.main.exception.PasswordMissmatchException;
 import betting.main.exception.UserAlreadyExistsException;
 
-@Controller
+@RestController("main")
 public class MainController {
 
 	private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
 
 	@Autowired
 	private UserDetailsServiceImpl userService;
-	
+
 	@Autowired
 	private SpielerTabelleService spielerTabelleService;
 
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String adminPage(Model model, Principal principal) {
 
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public ModelAndView adminPage( Principal principal) {
+		ModelAndView model = new ModelAndView("adminPage");
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
 		String userInfo = WebUtils.toString(loginedUser);
-		model.addAttribute("userInfo", userInfo);
+		model.addObject("userInfo", userInfo);
 
-		return "adminPage";
+		return model;
 	}
 
 	@RequestMapping(value = "/hauptansicht", method = RequestMethod.GET)
-	public String hauptansicht(Model model) {
+	public ModelAndView hauptansicht() {
+		ModelAndView model = new ModelAndView("hauptansicht");
 
-		return "hauptansicht";
+		return model;
 	}
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
-	public String loginPage(Model model) {
-
-		return "loginPage";
+	public ModelAndView loginPage() {
+		return new ModelAndView("loginPage");
 	}
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
@@ -98,13 +98,15 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/logoutPage", method = RequestMethod.GET)
-	public String logoutSuccessfulPage(Model model) {
-		model.addAttribute("title", "Logout");
-		return "logoutPage";
+	public ModelAndView logoutSuccessfulPage() {
+		ModelAndView model = new ModelAndView("logoutPage");
+		model.addObject("title", "Logout");
+		return model;
 	}
 
 	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	public String userInfo(Model model, Principal principal) {
+	public ModelAndView userInfo(Principal principal) {
+		ModelAndView model = new ModelAndView("userInfoPage");
 
 		// (1) (en)
 		// After user login successfully.
@@ -117,36 +119,39 @@ public class MainController {
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
 		String userInfo = WebUtils.toString(loginedUser);
-		model.addAttribute("userInfo", userInfo);
+		model.addObject("userInfo", userInfo);
 
-		return "userInfoPage";
+		return model;
 	}
+
 	
 	@RequestMapping(value = "/spielerTabelle", method = RequestMethod.GET)
-	public String spielerTabelle(Model model) {
+	public ModelAndView spielerTabelle() {
+		ModelAndView model = new ModelAndView("spielerTabelle");
 		List<TurnierStatisitkDTO> turnierStats = spielerTabelleService.getTurnierStatistiken();
-		model.addAttribute("turnierStats",turnierStats);
-		
-		return "spielerTabelle";
+		model.addObject("turnierStats", turnierStats);
+
+		return model;
 	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
-	public String accessDenied(Model model, Principal principal) {
+	public ModelAndView accessDenied(Principal principal) {
+		ModelAndView model = new ModelAndView("403Page");
 
 		if (principal != null) {
 			User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
 			String userInfo = WebUtils.toString(loginedUser);
 
-			model.addAttribute("userInfo", userInfo);
+			model.addObject("userInfo", userInfo);
 
 			String message = "Hi " + principal.getName() //
 					+ "<br> You do not have permission to access this page!";
-			model.addAttribute("message", message);
+			model.addObject("message", message);
 
 		}
 
-		return "403Page";
+		return model;
 	}
 
 }

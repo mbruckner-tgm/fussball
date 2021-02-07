@@ -1,0 +1,97 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spiele</title>
+  
+<script type="text/javascript" src="../static/jquery/jquery.min.js" th:src="{@/jquery/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/bootstrap/js/dist/collapse.js" th:src="{@/bootstrap/js/dist/collapse.js}"></script>
+<script type="text/javascript" src="../static/bootstrap/dist/js/bootstrap.min.js" th:src="{@/bootstrap/dist/js/bootstrap.min.js}"></script>
+
+<!-- Bootstrap core CSS -->
+
+<link href="../static/bootstrap/dist/css/bootstrap.min.css"
+      	th:ref="{@/bootstrap/dist/css/bootstrap.min.css}" 
+	 rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="../static/css/starter-template.css"
+      	th:ref="{@/css/starter-template.css}" 
+	rel="stylesheet">
+<link href="../static/css/perfect-scrollbar.css"
+      	th:ref="{@/css/perfect-scrollbar.css}" 
+	 rel="stylesheet">
+<link href="../static/css/wetten.css" 
+      	th:ref="{@/css/wetten.css}" 
+	rel="stylesheet">
+<link href="../static/css/matches.css" 
+      	th:ref="{@/css/matches.css}" 
+	rel="stylesheet">
+<link href="../static/css/font-awesome.min.css"
+      	th:ref="{@/css/font-awesome.min.css}" 
+	rel="stylesheet">
+</head>
+<body>
+	<th:block th:include="/navbar"></th:block>
+
+	<div class="limiter">
+		<div class="suchetable">
+			<table class=" table-sm table-match">
+				<tr>
+					<td><input name="stichtagSuche" class="form-control suchfeld"
+						placeholder="stichtag"></td>
+					<td><button class="btn btn-primary suchbutton" type="submit"
+							value="submit" th:href="@{/matches/matchDetail}">Match
+							anlegen</button></td>
+					<td><button class="btn btn-primary suchbutton" type="submit"
+							value="submit">Match anpassen</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver1 m-b-110"
+					th:each="offeneCollection,iter : offeneWetten">
+					<h1>offene Wetten</h1>
+					<table class="table table-sm"
+						th:each="wettListe,iter : ${offeneCollection}">
+						<thead class="table100-head">
+							<tr>
+								<th colspan="5">offene Wetten</th>
+							</tr>
+						</thead>
+						<tbody class="table100-body">
+							<tr th:each="spiel,iter : ${matchday.spiele}">
+								<td class="cell100 column1"><span
+									th:text="${spiel.spieltag}"> spieltag </span></td>
+								<td class="cell100 column2"><span
+									th:text="${spiel.anpfiff}"> anpfiff </span></td>
+								<td class="cell100 column3"><span
+									th:text="${spiel.heimTeam}"> heimteam </span></td>
+								<td class="cell100 column4"><span
+									th:text="${spieler.matchresult}"> ergebnis </span></td>
+								<td class="cell100 column5"><span
+									th:text="${spiel.auswaertsTeam}"> auswaertsteam </span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.container -->
+
+	<script src="../static/js/perfect-scrollbar.min.js" th:src="{@/js/perfect-scrollbar.min.js}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+		
+	</script>
+</body>
+</html>

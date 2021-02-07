@@ -36,9 +36,6 @@
         <extension module="org.wildfly.extension.security.manager"/>
         <extension module="org.wildfly.extension.undertow"/>
     </extensions>
-    <system-properties>
-        <property name="eclipselink.archive.factory" value="org.jipijapa.eclipselink.JBossArchiveFactoryImpl"/>
-    </system-properties>
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
@@ -124,6 +121,9 @@
             <logger category="sun.rmi">
                 <level name="WARN"/>
             </logger>
+            <logger category="org.jboss.security">
+                <level name="TRACE"/>
+            </logger>
             <root-logger>
                 <level name="INFO"/>
                 <handlers>
@@ -153,7 +153,7 @@
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
-                <datasource jta="true" jndi-name="java:jboss/postgresDS" pool-name="postgresDS" enabled="true" use-java-context="true" use-ccm="false">
+                <datasource jta="true" jndi-name="java:jboss/postgresDS" pool-name="postgresDS" enabled="true" use-java-context="true" use-ccm="false" statistics-enabled="true">
                     <connection-url>jdbc:postgresql://localhost:5432/betting_db</connection-url>
                     <driver-class>org.postgresql.Driver</driver-class>
                     <datasource-class>org.postgresql.ds.PGSimpleDataSource</datasource-class>
@@ -487,7 +487,7 @@
             <server name="default-server">
                 <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true"/>
                 <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
-                <host name="default-host" alias="localhost" default-web-module="myApp.war">
+                <host name="default-host" alias="localhost" default-web-module="betting-web.war">
                     <location name="/" handler="welcome-content"/>
                     <http-invoker security-realm="ApplicationRealm"/>
                 </host>

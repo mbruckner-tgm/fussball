@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Wett Details</title>
+
+
+<script type="text/javascript" src="../static/jquery/jquery.min.js" th:src="{@/jquery/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/bootstrap/dist/js/bootstrap.min.js" th:src="{@/bootstrap/dist/js/bootstrap.min.js}"></script>
+
+
+<!-- Bootstrap core CSS -->
+<link href="../static/bootstrap/dist/css/bootstrap.min.css"
+      	th:ref="{@/bootstrap/dist/css/bootstrap.min.css}" 
+	rel="stylesheet">
+	
+
+<!-- Custom styles for this template -->
+<link href="../static/css/starter-template.css"
+      	th:ref="{@/css/starter-template.css}" 
+rel="stylesheet">
+<link href="../static/css/matches.css" 
+      	th:ref="{@/css/matches.css}" 
+	rel="stylesheet">
+
+</head>
+<body>
+
+	<th:block th:include="/navbar"></th:block>
+	<form th:action="@{wetten/wettenDetail}" th:object="newBettingPickDTO"
+		method='POST'>
+		<div class="container-sm">
+			<h2>Wette anlegen</h2>
+			<div class="form-text">
+				<table class="table-match">
+					<tr>
+						<td class="column4"><label>Spieltag</label></td>
+						<td class="cell100 column4"><span th:text="${spieltag}">
+								spieltag </span></td>
+						<td class="column4"><label>Anpfiff</label></td>
+						<td class="cell100 column4"><span th:text="${spiel.anpfiff}">
+								anpfiff </span></td>
+					</tr>
+					<tr>
+						<td class="column4"><label>Heimteam</label></td>
+						<td class="column4"><span th:text="${spiel.heimTeam}">
+								heimteam </span></td>
+						<td class="column4"><label>Auswärtsteam</label></td>
+						<td class="column4"><span th:text="${spiel.auswaertsTeam}">
+								auswaertsteam </span></td>
+					</tr>
+				</table>
+				<table class="table-match">
+					<tr>
+						<td class="column4"><label>Ergebnis</label></td>
+						<td class="column4">
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn btn-secondary active"> <input
+										type="radio" name="options" id="option1" checked/> Active
+									</label> <label class="btn btn-secondary"> <input type="radio"
+										name="options" id="option2" /> Radio
+									</label> <label class="btn btn-secondary"> <input type="radio"
+										name="options" id="option3" /> Radio
+									</label>
+								</div>
+						</td>
+						<td class="column4"><label>Tore</label></td>
+						<td class="column4">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</form>
+	
+</body>
+
+</html>

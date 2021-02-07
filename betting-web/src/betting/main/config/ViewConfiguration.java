@@ -1,7 +1,5 @@
 package betting.main.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,20 +16,12 @@ import org.thymeleaf.templatemode.TemplateMode;
 @ComponentScan
 public class ViewConfiguration implements WebMvcConfigurer {
 
-	@Autowired
-	private ThymeleafProperties properties;
-
-	public void changeProperties() {
-		properties.setPrefix("classpath:/views/");
-
-	}
-
 	@Bean
 	public SpringResourceTemplateResolver templateResolver() {
 		// SpringResourceTemplateResolver automatically integrates with Spring's own
 		// resource resolution infrastructure, which is highly recommended.
 		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-		templateResolver.setPrefix("classpath:/views/");
+		templateResolver.setPrefix("classpath:/templates/");  
 		templateResolver.setSuffix(".html");
 		// HTML is the default value, added here for the sake of clarity.
 		templateResolver.setTemplateMode(TemplateMode.HTML);
@@ -64,22 +54,9 @@ public class ViewConfiguration implements WebMvcConfigurer {
 		viewResolver.setCharacterEncoding("UTF-8");
 		return viewResolver;
 	}
-
-//	@Bean
-//	public ClassLoaderTemplateResolver viewClassLoaderResolver() {
-//		ClassLoaderTemplateResolver classLoaderResolver = new ClassLoaderTemplateResolver();
-//		classLoaderResolver.setPrefix(properties.getPrefix());
-//		classLoaderResolver.setSuffix(".html");
-//		classLoaderResolver.setTemplateMode(TemplateMode.HTML);
-//		classLoaderResolver.setCharacterEncoding("UTF-8");
-//		classLoaderResolver.setOrder(0);
-//		classLoaderResolver.setCheckExistence(true);
-//
-//		return classLoaderResolver;
-//	}
-
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 	}
 }

@@ -6,11 +6,13 @@
 	<persistence-unit name="betting-db" transaction-type="JTA">
  		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
  		<jta-data-source>java:jboss/postgresDS</jta-data-source>
- 		
+ 		<class>db.entity.AppRole</class>
+ 		<class>db.entity.AppUser</class>
  		<class>db.entity.BettingPick</class>
  		<class>db.entity.BettingPickPK</class>
  		<class>db.entity.Match</class>
- 		<class>db.entity.Player</class>
+ 		<class>db.entity.MatchPK</class>
+ 		<class>db.entity.PersistentLogin</class>
  		<class>db.entity.Team</class>
  		<class>db.entity.Tournament</class>
 	

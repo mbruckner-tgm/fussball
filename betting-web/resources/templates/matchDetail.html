@@ -1,0 +1,98 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Match Detail</title>
+<!-- Bootstrap core CSS -->
+<link href="../static/bootstrap/dist/css/bootstrap.min.css"
+	th:ref="{@/bootstrap/dist/css/bootstrap.min.css}"
+	rel="stylesheet">
+<script
+	src="../static/bootstrap/dist/js/bootstrap.bundle.min.js" th:src="{@/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Custom styles for this template -->
+<link href="../static/css/starter-template.css"
+th:ref="{@/css/starter-template.css}"
+	 rel="stylesheet">
+<link href="../static/css/matches.css" 
+th:ref="{@/css/matches.css}"
+	rel="stylesheet">
+	
+</head>
+<body>
+
+	<th:block th:include="/navbar"></th:block>  
+	<form  th:action="@{matches/matchDetail}" th:object="${newMatchDTO}" method='POST'>
+	<div class="container-sm">
+		<h2>Match anlegen</h2>
+		<div class="form-text">
+				<table class="table-match">
+					<tr>
+						<td class="column4">
+							<label>Spieltag </label>
+						</td>
+						<td class="column4">
+							<select th:field="*{spieltagTag}" id="days" required></select>
+							<select th:field="*{spieltagMonat}" id="months" required></select>
+							<select th:field="*{spieltagJahr}" id="years" required></select>
+						</td>
+						<td class="column4">
+							<label>Anpfiff </label>
+						</td>
+						<td class="column4">
+							<select th:field="*{anpfiffStunde}" id="hours" required></select>
+							<select th:field="*{anpfiffMinute}" id="minutes" required></select>
+						</td>
+					</tr>
+					<tr>
+						<td class="column4">
+							<label>Heimteam </label>
+						</td>
+						<td class="column4">
+							<input th:field="*{heimTeam}" placeholder="heimteam"
+							required>
+						</td>
+						<td class="column4">
+							<label>Auswärtsteam </label></td>
+						<td class="column4">
+							<input th:field="*{auswaertsTeam}"
+							placeholder="auswaertsteam" required>
+						</td>
+					</tr>
+				</table>
+			</div>	
+	</div>
+	</form>
+	<script>
+		var hours = Array.from(range(0,23,1)),
+			minutes = [0,15,30,45],
+			years = Array.from(range(2020,2030,1)),
+			months = Array.from(range(1,12,1)),
+			days = Array.from(range(1,31,1)),
+		 	selectminute = document.getElementById('minutes'),
+			selecthour = document.getElementById('hours'),
+		 	selectday = document.getElementById('days'),
+			selectmonth = document.getElementById('months'),
+			selectyear = document.getElementById('years');
+		for(hour in hours) {
+		   selecthour.add (new Option(hours[hour]));
+		}
+		for(minute in minutes) {
+			selectminute.add (new Option(minutes[minute]));
+		}
+		for(day in days) {
+		   selectday.add (new Option(days[day]));
+		}
+		for(month in months) {
+			selectmonth.add (new Option(months[month]));
+		}
+		for(year in years) {
+			selectyear.add (new Option(years[year]));
+		}
+		function range(start,end,step){
+			return Array(end - start + 1).fill().map((_, step) => start + step)
+		}
+		
+	</script>
+
+</body>
+</html>

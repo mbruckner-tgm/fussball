@@ -11,40 +11,46 @@ import org.springframework.transaction.annotation.Transactional;
 import db.dtos.MatchesSuchparameter;
 import db.entity.Match;
 
-
 @Transactional
 @Repository("MatchesRepository")
 public class MatchesRepository {
 
-	
 	@PersistenceContext
 	private EntityManager entityManager;
 
-
 	@SuppressWarnings("unchecked")
-	public List<Match> findeMatchesZuSuchparametern(MatchesSuchparameter suchparameter){
-		if(suchparameter.getGesuchterSpieltag().isPresent()) {
-			entityManager.createNamedQuery("Matches.findAllMatchesToMatchday").setParameter("matchDay", suchparameter.getGesuchterSpieltag().get()).getResultList();
-		}
-		if(suchparameter.getGesuchtesTeam().isPresent()) {
-			entityManager.createNamedQuery("Matches.findAllMatchesToTeamId").setParameter("team", suchparameter.getGesuchtesTeam().get()).getResultList();
-		}
-		if(suchparameter.getGesuchtesTurnier().isPresent()) {
-			entityManager.createNamedQuery("Matches.findAllMatchesToTurnier").setParameter("turnier", suchparameter.getGesuchtesTurnier().get()).getResultList();
-		}
-		if(suchparameter.getGesuchterSpieltag().isPresent() && suchparameter.getGesuchtesTeam().isPresent()){
-			entityManager.createNamedQuery("Matches.findAllMatchesToMatchDayAndTeam").setParameter("matchDay", suchparameter.getGesuchterSpieltag().get()).setParameter("team", suchparameter.getGesuchtesTeam().get()).getResultList();
-		}
-		if(suchparameter.getGesuchterSpieltag().isPresent() && suchparameter.getGesuchtesTurnier().isPresent()){
-			entityManager.createNamedQuery("Matches.findAllMatchesToMatchDayAndTournament").setParameter("matchDay", suchparameter.getGesuchterSpieltag().get()).setParameter("turnier", suchparameter.getGesuchtesTurnier().get()).getResultList();
-		}
-		if(suchparameter.getGesuchtesTurnier().isPresent() && suchparameter.getGesuchtesTeam().isPresent()){
-			entityManager.createNamedQuery("Matches.findAllMatchesToTournamentAndTeam").setParameter("turnier", suchparameter.getGesuchtesTurnier().get()).setParameter("team", suchparameter.getGesuchtesTeam().get()).getResultList();
+	public List<Match> findeMatchesZuSuchparametern(MatchesSuchparameter suchparameter) {
+
+		if (suchparameter.getGesuchterSpieltag().isPresent() && suchparameter.getGesuchtesTeam().isPresent()) {
+			entityManager.createNamedQuery("Matches.findAllMatchesToMatchDayAndTeam")
+					.setParameter("matchDay", suchparameter.getGesuchterSpieltag().get())
+					.setParameter("team", suchparameter.getGesuchtesTeam().get()).getResultList();
+		} else if (suchparameter.getGesuchterSpieltag().isPresent()
+				&& suchparameter.getGesuchtesTurnier().isPresent()) {
+			entityManager.createNamedQuery("Matches.findAllMatchesToMatchDayAndTournament")
+					.setParameter("matchDay", suchparameter.getGesuchterSpieltag().get())
+					.setParameter("turnier", suchparameter.getGesuchtesTurnier().get()).getResultList();
+		} else if (suchparameter.getGesuchtesTurnier().isPresent() && suchparameter.getGesuchtesTeam().isPresent()) {
+			entityManager.createNamedQuery("Matches.findAllMatchesToTournamentAndTeam")
+					.setParameter("turnier", suchparameter.getGesuchtesTurnier().get())
+					.setParameter("team", suchparameter.getGesuchtesTeam().get()).getResultList();
+		} else if (suchparameter.getGesuchterSpieltag().isPresent()) {
+			entityManager.createNamedQuery("Matches.findAllMatchesToMatchday")
+					.setParameter("matchDay", suchparameter.getGesuchterSpieltag().get()).getResultList();
+		} else if (suchparameter.getGesuchtesTeam().isPresent()) {
+			entityManager.createNamedQuery("Matches.findAllMatchesToTeamId")
+					.setParameter("team", suchparameter.getGesuchtesTeam().get()).getResultList();
+		} else if (suchparameter.getGesuchtesTurnier().isPresent()) {
+			entityManager.createNamedQuery("Matches.findAllMatchesToTurnier")
+					.setParameter("turnier", suchparameter.getGesuchtesTurnier().get()).getResultList();
+		} else if (suchparameter.getStichtag().isPresent()) {
+			entityManager.createNamedQuery("Matches.findAllMatchesWhereMatchdayGreater")
+					.setParameter("stichtag", suchparameter.getStichtag().get()).getResultList();
 		}
 		return entityManager.createNamedQuery("Matches.findAll").getResultList();
+
 	}
-	
-	
+
 	public void insertMatch(Match matchDB) {
 		entityManager.persist(matchDB);
 	}
